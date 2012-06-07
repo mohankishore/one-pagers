@@ -83,7 +83,7 @@
         <spring.version>3.1.0.RELEASE</spring.version>
         <spring.security.version>3.1.0.RELEASE</spring.security.version>
     </properties>
-    
+
     <dependencies>
         <!-- spring security -->
         <dependency>
@@ -157,6 +157,20 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.16</version>
+        </dependency>
+
+        <!-- for testing SQL queries -->
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.2.8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

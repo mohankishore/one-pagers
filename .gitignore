@@ -1,8 +1,11 @@
-# Output
+# Java Output
 *.class
 *.jar
 *.war
 *.ear
+
+# Maven
+target
 
 # Eclipse
 .classpath
