@@ -8,8 +8,15 @@ if ("PROD".equals(System.getProperty("my.env.property"))) {
     return;
 }
 %>
-
 <%!
+    private static String nvl(String s) {
+        return nvl(s, "");
+    }
+    
+    private static String nvl(String s, String def) {
+        return (s != null) ?s :def;
+    }
+    
     private static final int MAX_CELL_LENGTH = 150;
     private static final String[] MAX_ROWS = {"10", "100", "1000", "10000" };
 
@@ -44,14 +51,6 @@ if ("PROD".equals(System.getProperty("my.env.property"))) {
             str = str.substring(str.lastIndexOf('.')+1);
         }
         return str;
-    }
-
-    private String nvl(String s) {
-        return nvl(s, "");
-    }
-
-    private String nvl(String s, String def) {
-        return (s != null) ?s :def;
     }
 
     private Connection getConnection(ServletContext servletContext, String dataSourceName) throws Exception {
@@ -279,6 +278,7 @@ if ("PROD".equals(System.getProperty("my.env.property"))) {
 %>
 <html>
 <head>
+<title>DB Admin</title>
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.7.1/dojo/resources/dojo.css" media="screen"/>
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.7.1/dijit/themes/claro/claro.css" media="screen"/>
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.7.1/dojox/grid/resources/claroGrid.css" media="screen"/>
