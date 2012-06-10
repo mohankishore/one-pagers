@@ -33,13 +33,21 @@ The JSP uses the Thread MX Bean to lookup the thread information. It essentially
 apart (500 ms by default) and shows you the top threads executing during this interval. The page accepts a search pattern to 
 filter the threads as well as options to limit the number of threads and/or the depth of the stack trace that is returned.
  
+ 
+
+jmx_admin.jsp
+----------------
+
+The JSP tries to replicate some/most of the functionality provided by the MBean tab within JConsole. The current implementation
+offers read-only support for viewing the MBeans and their attributes. The JSP handles "array" values fairly gracefully and just
+uses the default "toString" conversion in most other cases.
+ 
 
 
 To be done:
 -----------
 
 * Log admin
-* JMX admin
 * File Explorer
 * Shell emulator
 
