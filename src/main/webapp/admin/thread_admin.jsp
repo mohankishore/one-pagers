@@ -10,13 +10,13 @@
      * @author Mohan Kishore
      */
 
-    private static String nvl(String s) {
-        return nvl(s, "");
-    }
+     private static String nvl(Object s) {
+         return nvl(s, "");
+     }
 
-    private static String nvl(String s, String def) {
-        return (s != null) ? s : def;
-    }
+     private static String nvl(Object s, String def) {
+         return (s != null) ? String.valueOf(s) : def;
+     }
 
     private static class Controller {
         public int interval;

@@ -9,12 +9,12 @@ if ("PROD".equals(System.getProperty("my.env.property"))) {
 }
 %>
 <%!
-    private static String nvl(String s) {
+    private static String nvl(Object s) {
         return nvl(s, "");
     }
     
-    private static String nvl(String s, String def) {
-        return (s != null) ?s :def;
+    private static String nvl(Object s, String def) {
+        return (s != null) ? String.valueOf(s) : def;
     }
     
     private static final int MAX_CELL_LENGTH = 150;
