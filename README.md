@@ -1,7 +1,9 @@
 one-pagers
 ==========
 
-This project is a loose collection of single-page self-contained JSP files that make your life easier when troubleshooting issues. 
+This project is a loose collection of single-page self-contained JSP files that make your life easier when troubleshooting issues.
+Each JSP is completely self-contained - no dependency on other java classes or JSP pages. Just pick the JSP you need from
+https://github.com/mohankishore/one-pagers/tree/master/src/main/webapp/admin and copy it over to one of your java web-applications! 
 
 These files will obviously get no love from your info-sec team! In most cases, it should be fine if you put them all under some 
 protected URI (e.g. /admin/\*) - but please exercise your judgement in how you plan on using/deploying them.
