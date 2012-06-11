@@ -16,14 +16,15 @@ This JSP assumes that you are working in a "Spring" environment - if that is not
 data-sources. The page allows you to select the data-source you wish to run your queries against and set the maximum rows you 
 want fetched for any query. 
 
-The sample web-app uses an embedded HSQLDB to demo the functionality. Please create a test table on the first run:
+The sample web-app uses an embedded HSQLDB to demo the functionality. Please create a test table on the first run.
 
+    -- Sample SQLs: please execute one at a time
     create table test (id integer not null, name varchar(100) not null, description varchar(200), primary key (id))
-
-Followed by:
-
     insert into test values(1, 'hello', 'world')
+    insert into test values(2, 'foo', 'bar')
+    select * from test where id <> 1 
 
+<b>Screenshot</b>
 ![DB Admin](https://github.com/mohankishore/one-pagers/raw/master/img/db_admin.png)
 
 
@@ -34,6 +35,7 @@ This JSP uses the Thread MX Bean to lookup the thread information. It essentiall
 apart (500 ms by default) and shows you the top threads executing during this interval. The page accepts a search pattern to 
 filter the threads as well as options to limit the number of threads and/or the depth of the stack trace that is returned.
  
+<b>Screenshot</b>
 ![Thread Admin](https://github.com/mohankishore/one-pagers/raw/master/img/thread_admin.png)
  
 
@@ -44,6 +46,7 @@ This JSP tries to replicate some/most of the functionality provided by the MBean
 offers read-only support for viewing the MBeans and their attributes. The JSP handles "array" values fairly gracefully and just
 uses the default "toString" conversion in most other cases.
 
+<b>Screenshot</b>
 ![JMX Admin](https://github.com/mohankishore/one-pagers/raw/master/img/jmx_admin.png)
 
 
@@ -55,6 +58,7 @@ execute as the user that launched the servlet container process. It reads the us
 character i.e. cannot use "vi" etc. But it does allows you to browse around the filesystem, look at files, add/remove/copy/move
 them, start/shutdown processes etc.
 
+<b>Screenshot</b>
 ![Bash Admin](https://github.com/mohankishore/one-pagers/raw/master/img/bash_admin.png)
 
 
