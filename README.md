@@ -24,6 +24,7 @@ Followed by:
 
     insert into test values(1, 'hello', 'world')
 
+![DB Admin](https://github.com/mohankishore/one-pagers/raw/master/img/db_admin.png)
 
 
 thread_admin.jsp
@@ -33,6 +34,7 @@ This JSP uses the Thread MX Bean to lookup the thread information. It essentiall
 apart (500 ms by default) and shows you the top threads executing during this interval. The page accepts a search pattern to 
 filter the threads as well as options to limit the number of threads and/or the depth of the stack trace that is returned.
  
+![Thread Admin](https://github.com/mohankishore/one-pagers/raw/master/img/thread_admin.png)
  
 
 jmx_admin.jsp
@@ -42,6 +44,7 @@ This JSP tries to replicate some/most of the functionality provided by the MBean
 offers read-only support for viewing the MBeans and their attributes. The JSP handles "array" values fairly gracefully and just
 uses the default "toString" conversion in most other cases.
 
+![JMX Admin](https://github.com/mohankishore/one-pagers/raw/master/img/jmx_admin.png)
 
 
 bash_admin.jsp
@@ -51,6 +54,8 @@ This JSP provides a limited shell emulation support. It spawns a child process u
 execute as the user that launched the servlet container process. It reads the user-input one line at a time - NOT character by
 character i.e. cannot use "vi" etc. But it does allows you to browse around the filesystem, look at files, add/remove/copy/move
 them, start/shutdown processes etc.
+
+![Bash Admin](https://github.com/mohankishore/one-pagers/raw/master/img/bash_admin.png)
 
 
 
