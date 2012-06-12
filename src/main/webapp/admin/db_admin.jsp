@@ -17,6 +17,16 @@ if ("PROD".equals(System.getProperty("my.env.property"))) {
         return (s != null) ? String.valueOf(s) : def;
     }
     
+    private static String toJSON(String data) {
+        // '\' with '\\'
+        data = data.replaceAll("\\\\", "\\\\\\\\");
+        // new-line with '\n'
+        data = data.replaceAll("\n", "\\\\n");
+        // escape the single quotes
+        data = data.replaceAll("'", "\\\\'");
+        return data;        
+    }
+    
     private static final int MAX_CELL_LENGTH = 150;
     private static final String[] MAX_ROWS = {"10", "100", "1000", "10000" };
 
@@ -198,7 +208,7 @@ if ("PROD".equals(System.getProperty("my.env.property"))) {
                     }
                     obj = str;
                 }
-                pw.println("c" + i + ": '"+obj+"', ");
+                pw.println("c" + i + ": '"+toJSON(nvl(obj))+"', ");
             }
             pw.println("}, "); // end row
         }
@@ -299,29 +309,20 @@ if ("PROD".equals(System.getProperty("my.env.property"))) {
         "dojo/data/ObjectStore",
         "dojox/grid/DataGrid",
     ]);
-</script>
-<style type="text/css">
-    html, body {
-      height: 100%;
-      width: 100%;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
+
+    var BASE_URL = '<%= request.getRequestURI() %>';
+    
+    function toHTML(s) {
+        s = s.replace(/</g, "&lt;");
+        s = s.replace(/>/g, "&gt;");
+        s = s.replace(/\n/g, "<br>");
+        return s;
     }
-    #appContainer {
-      height: 100%;
-      width: 100%;
-    }
-    .monospace {
-      font-family: "Courier New" monospace;
-      font-size: 110%;
-    }
-</style>
-<script type="text/javascript" language="JavaScript">
+
     <%--
     function addParam(mode, type, value) {
-        var i = eval(document.forms['DBForm'].paramCount.value) + 1;
-        document.forms['DBForm'].paramCount.value = i;
+        var i = eval(document.forms['AdminForm'].paramCount.value) + 1;
+        document.forms['AdminForm'].paramCount.value = i;
         var str = "<div id='param"+i+"' class='paramRow'>";
         str += "<input type='text' name='param"+i+"' value='"+i+"' size='2' disabled/> ";
         str += "<select name='param"+i+".mode'>"+getModeOptions(mode)+"</select> ";
@@ -358,13 +359,13 @@ if ("PROD".equals(System.getProperty("my.env.property"))) {
     }
 
     function removeParams() {
-        document.forms['DBForm'].paramCount.value = 0;
+        document.forms['AdminForm'].paramCount.value = 0;
         document.getElementById('paramArea').innerHTML = '';
     }
 
     function removeParam(id) {
-        var i = eval(document.forms['DBForm'].paramCount.value) - 1;
-        document.forms['DBForm'].paramCount.value = i;
+        var i = eval(document.forms['AdminForm'].paramCount.value) - 1;
+        document.forms['AdminForm'].paramCount.value = i;
         var el = document.getElementById('param'+id);
         el.parentNode.removeChild(el);
     }
@@ -406,10 +407,27 @@ if ("PROD".equals(System.getProperty("my.env.property"))) {
         dojo.xhrPost(xhrArgs);
     }
 </script>
+<style type="text/css">
+    html, body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    #appContainer {
+      height: 100%;
+      width: 100%;
+    }
+    .monospace {
+      font-family: "Courier New" monospace;
+      font-size: 110%;
+    }
+</style>
 </head>
 
 <body class="claro">
-<form id="DBForm" method="post" action="<%= request.getRequestURI() %>" data-dojo-type="dijit.form.Form">
+<form id="AdminForm" method="post" action="<%= request.getRequestURI() %>" data-dojo-type="dijit.form.Form">
 <input type="hidden" name="paramCount" value="0"/>
 
 <div id="appContainer" data-dojo-type="dijit.layout.BorderContainer" data-dojo-props="">
@@ -442,7 +460,7 @@ if ("PROD".equals(System.getProperty("my.env.property"))) {
     <button data-dojo-type="dijit.form.Button" onClick="addParam('IN', 4, '')">Add Parameter</button>
     <button data-dojo-type="dijit.form.Button" onClick="removeParams()">Remove Parameters</button>
     --%>
-    <button data-dojo-type="dijit.form.Button" onClick="submitForm('DBForm')" data-dojo-props="iconClass: 'dijitEditorIcon dijitEditorIconTabIndent'">Execute</button>
+    <button data-dojo-type="dijit.form.Button" onClick="submitForm('AdminForm')" data-dojo-props="iconClass: 'dijitEditorIcon dijitEditorIconTabIndent'">Execute</button>
 </div><!-- toolbar -->
 
 <textarea name="query" class="monospace" data-dojo-type="dijit.form.SimpleTextarea" data-dojo-props="region: 'center'"><%=query%></textarea>

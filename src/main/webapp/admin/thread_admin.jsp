@@ -10,14 +10,24 @@
      * @author Mohan Kishore
      */
 
-     private static String nvl(Object s) {
-         return nvl(s, "");
-     }
+    private static String nvl(Object s) {
+        return nvl(s, "");
+    }
 
-     private static String nvl(Object s, String def) {
-         return (s != null) ? String.valueOf(s) : def;
-     }
+    private static String nvl(Object s, String def) {
+        return (s != null) ? String.valueOf(s) : def;
+    }
 
+    private static String toJSON(String data) {
+        // '\' with '\\'
+        data = data.replaceAll("\\\\", "\\\\\\\\");
+        // new-line with '\n'
+        data = data.replaceAll("\n", "\\\\n");
+        // escape the single quotes
+        data = data.replaceAll("'", "\\\\'");
+        return data;        
+    }
+    
     private static class Controller {
         public int interval;
         public int depth;
@@ -154,7 +164,7 @@
                 sb.append("status: '").append(data.threadStatus).append("', ");
                 sb.append("cpuTime: ").append(data.cpuTime).append(", ");
                 sb.append("cpuTotal: ").append(data.totalCpuTime).append(", ");
-                sb.append("stackTrace: '").append(data.stackTrace.replaceAll("\n", "\\\\n")).append("', ");
+                sb.append("stackTrace: '").append(toJSON(data.stackTrace)).append("', ");
                 sb.append("}, ");
             }
             sb.append("], ");

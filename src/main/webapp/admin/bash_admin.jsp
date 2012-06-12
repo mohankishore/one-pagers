@@ -17,6 +17,16 @@
         return (s != null) ? String.valueOf(s) : def;
     }
     
+    private static String toJSON(String data) {
+        // '\' with '\\'
+        data = data.replaceAll("\\\\", "\\\\\\\\");
+        // new-line with '\n'
+        data = data.replaceAll("\n", "\\\\n");
+        // escape the single quotes
+        data = data.replaceAll("'", "\\\\'");
+        return data;        
+    }
+    
     private static class Controller {
         public ServletContext application;
         public String mode;
@@ -87,15 +97,10 @@
 
             p1.cancel();
             p2.cancel();
-            
-            String data = baos.toString();
-            data = data.replaceAll("\\\\", "\\\\\\\\");
-            data = data.replaceAll("\n", "\\\\n");
-            data = data.replaceAll("'", "\\\\'");
-            
+                        
             StringBuilder out = new StringBuilder();
             out.append("{ status: 'OK', ");
-            out.append("out: '" + data + "', ");
+            out.append("out: '" + toJSON(baos.toString()) + "', ");
             out.append("}");
             return out.toString();
         }
@@ -186,6 +191,13 @@
     ]);
 
     var BASE_URL = '<%= request.getRequestURI() %>';
+    
+    function toHTML(s) {
+        s = s.replace(/</g, "&lt;");
+        s = s.replace(/>/g, "&gt;");
+        s = s.replace(/\n/g, "<br>");
+        return s;
+    }
 
     function connect() {
         var xhrArgs = {
@@ -222,11 +234,7 @@
             load: function(response){
             	var results = dojo.byId("results");
                 if (response.status == "OK") {
-                	var s = response.out;
-                    s = s.replace(/</g, "&lt;");
-                    s = s.replace(/>/g, "&gt;");
-                	s = s.replace(/\n/g, "<br>");
-                    results.innerHTML += s + "<br>";
+                    results.innerHTML += toHTML(response.out) + "<br>";
                 } else {
                     results.innerHTML += response.status + "<br>" + dojo.toJson(response) + "<br>";
                 }

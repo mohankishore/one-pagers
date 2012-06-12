@@ -17,6 +17,16 @@
         return (s != null) ? String.valueOf(s) : def;
     }
 
+    private static String toJSON(String data) {
+        // '\' with '\\'
+        data = data.replaceAll("\\\\", "\\\\\\\\");
+        // new-line with '\n'
+        data = data.replaceAll("\n", "\\\\n");
+        // escape the single quotes
+        data = data.replaceAll("'", "\\\\'");
+        return data;        
+    }
+    
     private static class Controller {
         public String mode;
         public String filter;
@@ -77,7 +87,7 @@
                     } else {
                         value = nvl(obj);
                     }
-                    value = value.replaceAll("\n", "\\\\n");
+                    value = toJSON(value);
                     out.append("{ name: '" + a.getName() + "', value: '" + value + "' }, ");
                 }
                 out.append("] }");
@@ -124,6 +134,13 @@
     ]);
     
     var BASE_URL = '<%= request.getRequestURI() %>';
+    
+    function toHTML(s) {
+        s = s.replace(/</g, "&lt;");
+        s = s.replace(/>/g, "&gt;");
+        s = s.replace(/\n/g, "<br>");
+        return s;
+    }
 
     function submitForm(formName) {
         var xhrArgs = {
