@@ -64,6 +64,15 @@ them, start/shutdown processes etc.
 ![Bash Admin](https://github.com/mohankishore/one-pagers/raw/master/img/bash_admin.png)
 
 
+visualvm.jsp
+--------------
+
+This JSP tries to replicate some of the functionality provided by the Visual VM tool. The current implementation shows you the 
+JVM startup arguments and system properties. Working on adding the charts to show the current CPU/Memory/Classes/Threads info.
+
+<b>Screenshot</b>
+![Visual VM](https://github.com/mohankishore/one-pagers/raw/master/img/visualvm.png)
+
 
 To be done:
 -----------

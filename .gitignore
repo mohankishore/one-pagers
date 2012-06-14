@@ -15,3 +15,6 @@ target
 # logs
 logs
 
+# Mac
+.DS_Store
+
